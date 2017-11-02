@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- This is a complete example of an image gallery -->
+
+<html lang="en">
+  <head>
+    <!-- the head section to define meta data and load css and js files -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery</title>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v3.0.3.js"></script>
+    
+    
+
+    <script src="js/Albums.js"> </script>
+    <script src="js/gallery.js"> </script>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/gallery.css" rel="stylesheet">
+
+    
+
+  </head>
+  <body>
+
+    <div class="container">
+
+      <!-- page tile -->
+      <div class="page-header">
+        <h1><b>Creative Decoratives</b></h1>
+      </div>    
+       <style>
+
+	h1{
+       	position:relative;
+       	text-align:center;
+       }
+
+     .container{
+     	background-image:url("C:\Users\home pc\Desktop\final_gallery\images_19");
+     }
+
+   </style>
+
+      <!-- A navigation menu that selects different views -->
+      <ul class="nav nav-tabs">
+            <li role="" class="active"><a href="#" id="albums-tab" >About us</a></li>
+            <li role=""><a href="#" id="photos-tab" >Photos</a></li>
+            <li role=""><a href="#" id="slideshow-tab" >Slideshow</a></li>
+          </ul>
+      <br/><br/>
+
+
+      <!-- the content section is empty as we will fill it 
+            via javascript and templates -->
+      <div id="content"  class="container-fluid"  role="main">
+      </div>
+  </div> <!-- / container -->
+
+<!-- Here are our Templates -->
+
+
+<script id="albums-template" type="text/x-handlebars-template">
+  <div class="row">
+
+<p> Experience the Accessible…
+Creative Design… Fresh Concepts… Krafting your dreams
+Creative Decorator's is an interior design company dedicated to providing our clients with creative concepts, high-quality design, beauty, and flawless execution. We tailor each project to our clients’ individual tastes and budgets.
+We are a team of skilled designers and craftsmen. We bring a variety. Professional skill set and sense of fun and playful to our work. We pride ourselves on listening to our clients, working with them side-by-side, and paying 
+fine
+attention to detail.
+We choose our product lines carefully and with a refined eye specifically trained to current trends and attention to various price points. We maintain a friendly, fair, and creative work and retail environment. We welcome new ideas and work hard. We provide quality goods and services and excellent customer service.
+Our goal is to create end results that are as unique and wonderful as our clients.
+Who we are
+Cretive decoraters is an experienced Interior Design firm focused on providing premium, personalized design services to its clients. Our diverse and experienced talent pool is committed to building strong bonds with our clientele by consistently providing professional, reliable and cost effective solutions.
+With a decade of varied design and build experience, we have developed the requisite skills and attitude to identify the potential in each space, and add value to the Interior. We also believe that technical and creative expertise has to be complemented with the latest and best technology and equipment. It is through such a system that we deliver quality results which integrate technical superiority and extra-ordinary aesthetics. We temper our efforts with constant co-ordination between members of our team so that we are able to blend the essence of our quality into the work at hand.
+
+</p>
+<br>
+    {{#each albums}}
+    <div class="col-xs-12 col-md-3"> 
+        <div class="album-thumbnail"  data-id="{{@index}}">
+          <img class="crop-img" src="{{thumbnail}}" alt=""/> 
+            
+          <div class="caption">
+              <h4> {{name}} </h4>
+              <p>{{photos.length}} photos</p>
+          </div>
+         </div>
+    </div> <!-- / col -->
+
+    {{/each}}
+
+  </div> <!-- / row -->
+</script>
+
+
+
+<script id="photos-template" type="text/x-handlebars-template">
+  <div class="row">
+      {{#each photos}}
+    <div class="col-xs-12 col-md-3"> 
+     <div class="photo-thumbnail"  data-id="{{@index}}">
+        <img class="crop-img" src="{{src}}" alt=""/> 
+          
+         <div class="caption">
+            <h3>{{title}}</h3>
+            <p>{{description}}</p>
+         </div>
+      </div>
+       
+    </div> <!-- / col -->
+    {{/each}}
+
+  </div> <!-- / row -->
+</script>
+
+
+<script id="photo-template" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="col-xs-12 col-md-12"> 
+        <img class="large-img" src="{{src}}" alt=""/> 
+          
+        <div class="caption">
+            <h3>{{title}}</h3>
+            <p>{{description}}</p>
+        </div>
+      </div> <!-- / col -->
+
+  </div> <!-- / row -->
+</script>
+
+
+<script id="slideshow-template" type="text/x-handlebars-template">
+  <div class="container">
+    <div class="item active">
+
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+  
+       <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+          {{#each photos}}
+            <div class="item {{#if @first}}active{{/if}}">
+             <img class="carousel-img" src="{{src}}" alt=""/> 
+            <div class="carousel-caption">
+              Image caption
+            </div>
+          </div> <!-- / carousel item -->
+          {{/each}}
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+    </div> <!-- / carousel --> 
+  </div> <!-- / col -->
+</div> <!-- / row -->
+</script>
+
+ </body>
+</html>
